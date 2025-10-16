@@ -8,11 +8,20 @@ export const metadata: Metadata = {
   description: "Access the client or admin workspace with a secure magic link.",
 };
 
-export default function SignInPage({
-  searchParams,
-}: {
-  searchParams: { callbackUrl?: string };
-}) {
+type SignInPageProps = {
+  searchParams?:
+    | {
+        callbackUrl?: string;
+      }
+    | Promise<{
+        callbackUrl?: string;
+      }>;
+};
+
+export default async function SignInPage({ searchParams }: SignInPageProps) {
+  const resolvedSearchParams = await searchParams;
+  const callbackUrl = resolvedSearchParams?.callbackUrl;
+
   return (
     <div className="space-y-6 text-left">
       <div className="space-y-3">
@@ -21,7 +30,7 @@ export default function SignInPage({
           Use the email you registered with. We’ll send a secure magic link to your inbox.
         </p>
       </div>
-      <SignInForm callbackUrl={searchParams?.callbackUrl} />
+      <SignInForm callbackUrl={callbackUrl} />
       <p className="text-xs text-muted-foreground">
         Need access? Reach out to your First Class AI operator or email
         <Link href="mailto:ops@firstclassai.com" className="ml-1 underline">
