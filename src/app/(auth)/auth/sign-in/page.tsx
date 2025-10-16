@@ -9,13 +9,9 @@ export const metadata: Metadata = {
 };
 
 type SignInPageProps = {
-  searchParams?:
-    | {
-        callbackUrl?: string;
-      }
-    | Promise<{
-        callbackUrl?: string;
-      }>;
+  searchParams?: Promise<{
+    callbackUrl?: string;
+  }>;
 };
 
 export default async function SignInPage({ searchParams }: SignInPageProps) {
