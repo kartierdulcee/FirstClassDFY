@@ -13,21 +13,18 @@ import { Logo } from "./logo";
 const navItems = [
   { href: "/#process", label: "Process" },
   { href: "/#proof", label: "Proof" },
-  { href: "/apply", label: "Apply" },
-  { href: "/book", label: "Book" },
-  { href: "/auth/sign-in", label: "Login" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/#apply", label: "Apply" },
 ];
 
 type SiteShellProps = {
   children: ReactNode;
   className?: string;
-  hideApplyCta?: boolean;
 };
 
 export function SiteShell({
   children,
   className,
-  hideApplyCta = false,
 }: SiteShellProps) {
   const pathname = usePathname();
 
@@ -51,13 +48,8 @@ export function SiteShell({
             ))}
           </nav>
           <div className="hidden items-center gap-3 md:flex">
-            {!hideApplyCta && (
-              <Button asChild variant="outline" size="sm">
-                <Link href="/apply">Apply</Link>
-              </Button>
-            )}
             <Button asChild variant="ghost" size="sm">
-              <Link href="/auth/sign-in">Login</Link>
+              <Link href="/auth/sign-in">Client Login</Link>
             </Button>
           </div>
           <Sheet>
@@ -77,12 +69,7 @@ export function SiteShell({
                   </Link>
                 ))}
               </nav>
-              {!hideApplyCta && (
-                <Button asChild className="mt-auto w-full">
-                  <Link href="/apply">Start Your Audit</Link>
-                </Button>
-              )}
-              <Button asChild variant="ghost" className="mt-3 w-full">
+              <Button asChild variant="ghost" className="mt-auto w-full">
                 <Link href="/auth/sign-in">Client Login</Link>
               </Button>
             </SheetContent>
@@ -101,11 +88,8 @@ export function SiteShell({
             <Link href="/apply" className="transition hover:text-foreground">
               Apply
             </Link>
-            <Link href="/book" className="transition hover:text-foreground">
-              Schedule
-            </Link>
-            <Link href="/auth/sign-in" className="transition hover:text-foreground">
-              Portal Login
+            <Link href="/pricing" className="transition hover:text-foreground">
+              See Pricing
             </Link>
           </div>
         </div>
