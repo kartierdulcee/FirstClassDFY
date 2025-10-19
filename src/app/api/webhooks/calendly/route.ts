@@ -44,8 +44,18 @@ export async function POST(request: Request) {
 
   const startTime = data.payload.event.start_time;
   const prettyDate = data.payload.event.start_time_pretty ?? formatDateTime(startTime);
-  const location = data.payload.event.location;
-  const joinUrl = typeof location === "string" ? (location.startsWith("http") ? location : undefined) : location?.join_url;
+  const location = data.payload.event.location as
+    | string
+    | { join_url?: string | null }
+    | null
+    | undefined;
+  let joinUrl: string | undefined;
+
+  if (typeof location === "string") {
+    joinUrl = location.startsWith("http") ? location : undefined;
+  } else if (location?.join_url) {
+    joinUrl = location.join_url;
+  }
 
   await prisma.lead.update({
     where: { id: lead.id },
