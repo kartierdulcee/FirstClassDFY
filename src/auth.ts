@@ -1,5 +1,6 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { getServerSession, type NextAuthOptions } from "next-auth";
+import type { Adapter } from "next-auth/adapters";
 import EmailProvider from "next-auth/providers/email";
 import { Role } from "@prisma/client";
 
@@ -8,7 +9,7 @@ import { prisma } from "@/lib/prisma";
 import { sendMagicLink } from "@/lib/email";
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   session: {
     strategy: "jwt",
   },
